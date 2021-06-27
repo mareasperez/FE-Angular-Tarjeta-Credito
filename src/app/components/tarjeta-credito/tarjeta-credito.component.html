@@ -15,39 +15,52 @@
                     <h5 class="titulo">
                         Guardar Tarjeta de credito
                     </h5>
-                    <form action="">
+                    <form [formGroup]="form" (ngSubmit)=agregarTarjeta()>
                         <div class="input-group input-group-lg mb-3">
                             <span class="input-group-text">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-user"
+                                    [class.green-icon]="this.form.get('titular')?.valid && this.form.get('titular')?.touched"
+                                    [class.red-icon]="this.form.get('titular')?.invalid &&this.form.get('titular')?.touched">
+                                </i>
                             </span>
-                            <input type="text" class="form-control" placeholder="Titular">
+                            <input type="text" formControlName="titular" class="form-control" placeholder="Titular">
                         </div>
                         <div class="input-group input-group-lg mb-3">
                             <span class="input-group-text">
-                                <i class="far fa-credit-card"></i>
+                                <i class="far fa-credit-card"
+                                    [class.green-icon]="this.form.get('numero')?.valid && this.form.get('numero')?.touched"
+                                    [class.red-icon]="this.form.get('numero')?.invalid &&this.form.get('numero')?.touched">
+                                </i>
                             </span>
-                            <input type="text" class="form-control" placeholder="Numero de tarjeta">
+                            <input type="text" formControlName="numero" class="form-control"
+                                placeholder="Numero de tarjeta" maxlength="16">
                         </div>
                         <div class="row">
                             <div class="col-lg-7">
                                 <div class="input-group input-group-lg mb-3">
                                     <span class="input-group-text">
-                                        <i class="far fa-calendar-alt"></i>
+                                        <i class="far fa-calendar-alt"
+                                            [class.green-icon]="this.form.get('exp_date')?.valid && this.form.get('exp_date')?.touched"
+                                            [class.red-icon]="this.form.get('exp_date')?.invalid &&this.form.get('exp_Date')?.touched">
+                                        </i>
                                     </span>
-                                    <input type="text" class="form-control" placeholder="MM/YY">
+                                    <input type="text" formControlName="exp_date" class="form-control"
+                                        placeholder="MM/YY" maxlength="5">
                                 </div>
                             </div>
                             <div class="col-lg-5">
                                 <div class="input-group input-group-lg mb-3">
                                     <span class="input-group-text">
-                                        <i class="fas fa-key"></i>
+                                        <i class="fas fa-key"
+                                            [class.green-icon]="this.form.get('cvv')?.valid && this.form.get('cvv')?.touched"
+                                            [class.red-icon]="this.form.get('cvv')?.invalid &&this.form.get('cvv')?.touched"></i>
                                     </span>
-                                    <input type="password" class="form-control" placeholder="CVV">
+                                    <input type="password" formControlName="cvv" class="form-control" placeholder="CVV" maxlength="3">
                                 </div>
                             </div>
                         </div>
                         <div class="d-grid gap-2">
-                            <button class="btn btn-success btn-lg btn-block" type="submit">
+                            <button  [disabled]="!this.form.valid" class="btn btn-success btn-lg btn-block" type="submit">
                                 <i class="fas fa-database"></i> Guardar
                             </button>
                         </div>
@@ -63,13 +76,12 @@
                     </h5>
                     <table class="table">
                         <tbody>
-                            <tr *ngFor="let tarjeta of listaCredito">
+                            <tr *ngFor="let tarjeta of listaCredito; let i = index">
                                 <td>{{tarjeta.titular}}</td>
                                 <td>{{tarjeta.numero}}</td>
                                 <td>{{tarjeta.exp_date}}</td>
-                                <td>{{tarjeta.cvv}}</td>
                                 <td><i class="fas fa-edit text-info"></i></td>
-                                <td><i class="fas fa-trash text-danger"></i></td>
+                                <td><i (click)="eliminarTarjeta(i)" class="fas fa-trash text-danger"></i></td>
                             </tr>
                         </tbody>
                     </table>
