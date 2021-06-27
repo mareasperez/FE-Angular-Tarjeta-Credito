@@ -8,3 +8,8 @@ body {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
+.titulo {
+ font-family:'Potta One', cursive;
+ text-align: center;
+ text-transform: uppercase;
+}
